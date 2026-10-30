@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "tool": "PyME-Cloud-Posture",
+    "version": "1.0.0",
+    "target_domain": "github.com",
+    "timestamp": "2026-10-30 17:49:44"
+  },
+  "assessment": {
+    "score": 100,
+    "resilience_level": "Excelente - Alta Protección Anti-Spoofing",
+    "summary": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "PASSED": 6,
+      "TOTAL_CHECKS": 6
+    }
+  },
+  "findings": [
+    {
+      "id": "EML-SPF-005",
+      "title": "Registro SPF Presente",
+      "category": "Email Authentication",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "El dominio cuenta con un registro SPF válido.",
+      "impact": "Permite validar remitentes autorizados.",
+      "remediation": "Revisar directivas periódicamente.",
+      "suggested_dns": null,
+      "details": "Registro: v=spf1 ip4:192.30.252.0/22 include:spf.protection.outlook.com include:_netblocks.google.com include:_netblocks2.google.com include:mail.zendesk.com include:_spf.salesforce.com include:servers.mcsv.net include:mktomail.com include:sendgrid.net ip4:62.253.2"
+    },
+    {
+      "id": "EML-DMR-002",
+      "title": "DMARC en Modo Rechazo Estricto (p=reject)",
+      "category": "Email Authentication",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "DMARC está configurado con política 'p=reject'. Los correos falsificados son bloqueados automáticamente en el destino.",
+      "impact": "Protección total contra Business Email Compromise (BEC) y suplantación de identidad por correo.",
+      "remediation": "Monitorear reportes RUA para detectar nuevos servicios legítimos.",
+      "suggested_dns": null,
+      "details": "Registro DMARC: v=DMARC1; p=quarantine; sp=reject; pct=100; rua=mailto:dmarc@github.com; ruf=mailto:dmarc@github.com; fo=1"
+    },
+    {
+      "id": "EML-DKM-001",
+      "title": "Firma Criptográfica DKIM Detectada",
+      "category": "Email Authentication",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "Se detectaron claves públicas DKIM activas en los selectores: google, selector1, k1, s1.",
+      "impact": "Garantiza que el contenido del correo no sea alterado en tránsito (Integridad y Autenticidad).",
+      "remediation": "Rotar claves DKIM de forma anual.",
+      "suggested_dns": null,
+      "details": "Selectores validados: google, selector1, k1, s1"
+    },
+    {
+      "id": "INF-MX-002",
+      "title": "Servicio de Correo Identificado: Microsoft 365 / Exchange Online",
+      "category": "Mail Infrastructure",
+      "severity": "INFO",
+      "status": "PASS",
+      "description": "El dominio gestiona su correo mediante: Microsoft 365 / Exchange Online.",
+      "impact": "Información de arquitectura e infraestructura.",
+      "remediation": "Garantizar que las directivas de seguridad (MFA, auditoría de buzones) estén activas en la consola del proveedor.",
+      "suggested_dns": null,
+      "details": "Servidores MX detectados (1): github-com.mail.protection.outlook.com"
+    },
+    {
+      "id": "WEB-TLS-002",
+      "title": "Certificado SSL/TLS Válido y Saludable",
+      "category": "Web & Perimeter Security",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "Certificado SSL activo con 89 días de vigencia restantes.",
+      "impact": "El tráfico de los clientes y transacciones viaja cifrado de forma segura.",
+      "remediation": "Mantener monitoreo de renovación automática.",
+      "suggested_dns": null,
+      "details": "Vigente hasta Jan 27 23:59:59 2027 GMT (89 días)"
+    },
+    {
+      "id": "WEB-HDR-001",
+      "title": "Encabezado HSTS (Strict-Transport-Security) Activo",
+      "category": "Web & Perimeter Security",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "El sitio fuerza conexiones HTTPS seguras impidiendo ataques de degradación SSL Strip.",
+      "impact": "Protege a los clientes contra ataques Man-In-The-Middle (MITM).",
+      "remediation": "Mantener directiva max-age >= 31536000.",
+      "suggested_dns": null,
+      "details": "HSTS: max-age=31536000; includeSubdomains; preload"
+    }
+  ]
+}

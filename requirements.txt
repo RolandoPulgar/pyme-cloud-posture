@@ -1,0 +1,3 @@
+# Core functionality works using Python 3.8+ standard library and native DNS tools.
+# Optional for direct DNS protocol queries:
+dnspython>=2.4.0

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Seguridad Cloud & Correo | github.com</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 32px 16px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .header h1 { font-size: 20px; font-weight: 800; color: var(--primary); }
+        .header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+        
+        .score-hero {
+            background: #ecfdf5;
+            border: 1px solid #10b98140;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .score-box { display: flex; align-items: baseline; gap: 8px; }
+        .score-number { font-size: 54px; font-weight: 900; color: #10b981; line-height: 1; }
+        .score-denom { font-size: 20px; font-weight: 700; color: var(--text-muted); }
+        .score-grade { font-size: 16px; font-weight: 800; color: var(--primary); margin-top: 4px; }
+
+        .finding-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .finding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .category-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .finding-id { font-size: 11px; font-family: monospace; color: var(--text-muted); }
+        .finding-title { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+        .finding-desc { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+        
+        .finding-impact {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: #334155;
+        }
+        .finding-remediation {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #1e3a8a;
+        }
+        .dns-box {
+            margin-top: 10px;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+        .dns-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: #92400e;
+            text-transform: uppercase;
+        }
+        .code-box {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 6px;
+            font-family: Consolas, monospace;
+            font-size: 11px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .finding-details {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-family: monospace;
+        }
+
+        .passed-grid {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .passed-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12px;
+        }
+        .check-icon {
+            background: #dcfce7;
+            color: #15803d;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 11px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>Auditoría de Seguridad Cloud & Correo Corporativo</h1>
+                <p>Dominio Analizado: <strong>github.com</strong> &bull; Fecha: 2026-10-30 17:49:44</p>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--primary);">PyME-Cloud-Posture</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Auditor: Rolando Pulgar</div>
+            </div>
+        </div>
+
+        <!-- Score Hero -->
+        <div class="score-hero">
+            <div>
+                <div class="score-box">
+                    <span class="score-number">100</span>
+                    <span class="score-denom">/ 100</span>
+                </div>
+                <div class="score-grade">Excelente - Alta Protección Anti-Spoofing</div>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <div style="background:#fff; border:1px solid #e2e8f0; padding:8px 12px; border-radius:10px; font-size:12px; font-weight:700;">
+                    Alertas Críticas/Altas: <span style="color:#ef4444;">0</span>
+                </div>
+                <div style="background:#fff; border:1px solid #e2e8f0; padding:8px 12px; border-radius:10px; font-size:12px; font-weight:700;">
+                    Controles Aprobados: <span style="color:#10b981;">6</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issues -->
+        <h2 style="font-size:16px; font-weight:800; margin:24px 0 16px 0;">Vulnerabilidades de Configuración y Remediación Directa</h2>
+        <p style="color:#10b981; font-weight:600;">No se detectaron problemas de autenticación de correo o certificados.</p>
+
+        <!-- Passed -->
+        <h2 style="font-size:16px; font-weight:800; margin:28px 0 16px 0;">Controles y Mecanismos de Autenticación Validados</h2>
+        <div class="passed-grid">
+            
+        <div class="passed-item">
+            <span class="check-icon">✓</span>
+            <div>
+                <strong>Registro SPF Presente</strong>
+                <div style="font-size: 11px; color: #64748b;">Email Authentication &bull; El dominio cuenta con un registro SPF válido.</div>
+            </div>
+        </div>
+        
+        <div class="passed-item">
+            <span class="check-icon">✓</span>
+            <div>
+                <strong>DMARC en Modo Rechazo Estricto (p=reject)</strong>
+                <div style="font-size: 11px; color: #64748b;">Email Authentication &bull; DMARC está configurado con política 'p=reject'. Los correos falsificados son bloqueados automáticamente en el destino.</div>
+            </div>
+        </div>
+        
+        <div class="passed-item">
+            <span class="check-icon">✓</span>
+            <div>
+                <strong>Firma Criptográfica DKIM Detectada</strong>
+                <div style="font-size: 11px; color: #64748b;">Email Authentication &bull; Se detectaron claves públicas DKIM activas en los selectores: google, selector1, k1, s1.</div>
+            </div>
+        </div>
+        
+        <div class="passed-item">
+            <span class="check-icon">✓</span>
+            <div>
+                <strong>Servicio de Correo Identificado: Microsoft 365 / Exchange Online</strong>
+                <div style="font-size: 11px; color: #64748b;">Mail Infrastructure &bull; El dominio gestiona su correo mediante: Microsoft 365 / Exchange Online.</div>
+            </div>
+        </div>
+        
+        <div class="passed-item">
+            <span class="check-icon">✓</span>
+            <div>
+                <strong>Certificado SSL/TLS Válido y Saludable</strong>
+                <div style="font-size: 11px; color: #64748b;">Web & Perimeter Security &bull; Certificado SSL activo con 89 días de vigencia restantes.</div>
+            </div>
+        </div>
+        
+        <div class="passed-item">
+            <span class="check-icon">✓</span>
+            <div>
+                <strong>Encabezado HSTS (Strict-Transport-Security) Activo</strong>
+                <div style="font-size: 11px; color: #64748b;">Web & Perimeter Security &bull; El sitio fuerza conexiones HTTPS seguras impidiendo ataques de degradación SSL Strip.</div>
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="footer">
+            Generado automáticamente con <strong>PyME-Cloud-Posture</strong> &bull; Herramienta de auditoría de ciberseguridad cloud para PyMEs.
+        </div>
+    </div>
+</body>
+</html>

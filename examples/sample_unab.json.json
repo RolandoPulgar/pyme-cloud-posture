@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "tool": "PyME-Cloud-Posture",
+    "version": "1.0.0",
+    "target_domain": "unab.cl",
+    "timestamp": "2026-10-30 17:49:52"
+  },
+  "assessment": {
+    "score": 100,
+    "resilience_level": "Excelente - Alta Protección Anti-Spoofing",
+    "summary": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "PASSED": 6,
+      "TOTAL_CHECKS": 6
+    }
+  },
+  "findings": [
+    {
+      "id": "EML-SPF-005",
+      "title": "Registro SPF Presente",
+      "category": "Email Authentication",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "El dominio cuenta con un registro SPF válido.",
+      "impact": "Permite validar remitentes autorizados.",
+      "remediation": "Revisar directivas periódicamente.",
+      "suggested_dns": null,
+      "details": "Registro: v=spf1 include:spf.protection.outlook.com include:amazonses.com include:spf.masterbase.com include:_spf.embluemail.com include:spf.sendinblue.com ip4:129.151.100.84/32 ip4:129.151.102.150/32 ip4:139.138.38.46/32 ip4:139.138.58.68/32 ip4:139.60.152.0/22 ip"
+    },
+    {
+      "id": "EML-DMR-003",
+      "title": "DMARC en Modo Cuarentena (p=quarantine)",
+      "category": "Email Authentication",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "DMARC está configurado con política 'p=quarantine'. Correos sospechosos son enviados a la carpeta de SPAM.",
+      "impact": "Buen nivel de protección. Camino hacia política 'p=reject'.",
+      "remediation": "Elevar la política a 'p=reject' una vez comprobada la tasa de entrega legítima.",
+      "suggested_dns": null,
+      "details": "Registro DMARC: v=DMARC1; p=quarantine; rua=mailto:dmarc@unab.cl,mailto:dmarc_agg@vali.email; ruf=mailto:dmarc@unab.cl; aspf=r; sp=quarantine; pct=100;"
+    },
+    {
+      "id": "EML-DKM-001",
+      "title": "Firma Criptográfica DKIM Detectada",
+      "category": "Email Authentication",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "Se detectaron claves públicas DKIM activas en los selectores: default, selector1.",
+      "impact": "Garantiza que el contenido del correo no sea alterado en tránsito (Integridad y Autenticidad).",
+      "remediation": "Rotar claves DKIM de forma anual.",
+      "suggested_dns": null,
+      "details": "Selectores validados: default, selector1"
+    },
+    {
+      "id": "INF-MX-002",
+      "title": "Servicio de Correo Identificado: Microsoft 365 / Exchange Online",
+      "category": "Mail Infrastructure",
+      "severity": "INFO",
+      "status": "PASS",
+      "description": "El dominio gestiona su correo mediante: Microsoft 365 / Exchange Online.",
+      "impact": "Información de arquitectura e infraestructura.",
+      "remediation": "Garantizar que las directivas de seguridad (MFA, auditoría de buzones) estén activas en la consola del proveedor.",
+      "suggested_dns": null,
+      "details": "Servidores MX detectados (1): unab-cl.mail.protection.outlook.com"
+    },
+    {
+      "id": "WEB-TLS-002",
+      "title": "Certificado SSL/TLS Válido y Saludable",
+      "category": "Web & Perimeter Security",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "Certificado SSL activo con 71 días de vigencia restantes.",
+      "impact": "El tráfico de los clientes y transacciones viaja cifrado de forma segura.",
+      "remediation": "Mantener monitoreo de renovación automática.",
+      "suggested_dns": null,
+      "details": "Vigente hasta Jan 10 04:43:02 2027 GMT (71 días)"
+    },
+    {
+      "id": "WEB-HDR-001",
+      "title": "Encabezado HSTS (Strict-Transport-Security) Activo",
+      "category": "Web & Perimeter Security",
+      "severity": "PASSED",
+      "status": "PASS",
+      "description": "El sitio fuerza conexiones HTTPS seguras impidiendo ataques de degradación SSL Strip.",
+      "impact": "Protege a los clientes contra ataques Man-In-The-Middle (MITM).",
+      "remediation": "Mantener directiva max-age >= 31536000.",
+      "suggested_dns": null,
+      "details": "HSTS: max-age=31536000; includeSubDomains; preload"
+    }
+  ]
+}
